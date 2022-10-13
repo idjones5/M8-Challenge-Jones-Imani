@@ -1,8 +1,8 @@
 use sakila;
 
 -- write a query to find the total rental amount paid for each film 
-SELECT film.film_id, sum(amount) as 'total_amount'
-FROM film
+select film.film_id, sum(amount) as 'total_amount'
+from film
 join inventory on film.film_id = inventory.film_id
 join rental on inventory.inventory_id = rental.inventory_id
 join payment on rental.rental_id = payment.rental_id
@@ -10,8 +10,8 @@ group by film_id;
 
 -- create a view named total_rental_amount using the query from the previous step
 create view total_rental_amount as
-SELECT film.film_id, sum(amount) as 'total_amount'
-FROM film
+select film.film_id, sum(amount) as 'total_amount'
+from film
 join inventory on film.film_id = inventory.film_id
 join rental on inventory.inventory_id = rental.inventory_id
 join payment on rental.rental_id = payment.rental_id
@@ -23,14 +23,14 @@ from film
 join inventory on film.film_id = inventory.film_id
 group by film.film_id;
 
--- create a view names total_film_copies using the query from the previous step
+-- create a view named total_film_copies using the query from the previous step
 create view total_film_copies as
 select film.film_id, count(inventory.film_id) as 'total_copies'
 from film
 join inventory on film.film_id = inventory.film_id
 group by film.film_id;
 
--- write a sql query that combines data from the fil table, the total_rental_amount, and the total_film_copies
+-- write a sql query that combines data from the film table, the total_rental_amount, and the total_film_copies
 -- to find all films with a total rental amount greater than 200,000 
 select film.film_id, title, film.description, rental_duration, rental_rate, replacement_cost, rating, total_copies, total_amount
 from film
